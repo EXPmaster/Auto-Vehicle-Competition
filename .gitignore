@@ -1,3 +1,5 @@
 .DS_Store
 labeled_data_backup.zip
 labeled_data_backup/
+*.ipynb
+__pycache__/
