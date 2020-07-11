@@ -10,13 +10,27 @@ class Config:
         
         self.F1_thresh = 0.5
         
-        self.batchSize = 64
         self.class_num = 6
-        self.epoch = 20
         self.useCUDA = torch.cuda.is_available()
         self.device = 'cuda:0' if self.useCUDA else 'cpu'
-        self.LR = 1e-3
         self.WD = 5e-5
+        self.project = 'auto'
+        self.saved_path = 'logs/'
+        self.log_path = 'logs/'
+        self.batch_size = 1
+        self.num_workers = 1
+        self.data_path = 'datasets/'
+        self.compound_coef = 0
+        self.load_weights = 'weights/efficientdet-d1.pth'
+        self.head_only = False
+        self.debug = False
+        self.optim = 'adamw'
+        self.lr = 1e-5
+        self.num_epochs = 10
+        self.save_interval = 500
+        self.val_interval = 1
+        self.es_min_delta = 0.0
+        self.es_patience = 0 
         self.category = {'red_stop':1, 'green_go':2, 'yellow_back':3, 'pedestrian_crossing':4, 'speed_limited':5, 'speed_unlimited':6}
         
         

@@ -1,7 +1,7 @@
-project_name: coco  # also the folder name of the dataset that under data_path folder
+project_name: auto  # also the folder name of the dataset that under data_path folder
 train_set: trainset
 val_set: valset
-num_gpus: 1
+num_gpus: 0
 
 # mean and std in RGB order, actually this part should remain unchanged as long as your dataset is similar to coco.
 mean: [0.485, 0.456, 0.406]
