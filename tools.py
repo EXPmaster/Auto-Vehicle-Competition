@@ -7,7 +7,8 @@ class Config:
         self.data_root = 'labeled_data_backup'
         self.train_test_rate = 0.7
         
-        self.F1_thresh = 0.5
+        self.threshold = 0.5
+        self.nms_threshold = 0.5
         
         self.class_num = 6
         self.useCUDA = torch.cuda.is_available()

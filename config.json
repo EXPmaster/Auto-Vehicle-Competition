@@ -1,0 +1,88 @@
+{
+    "model_algorithm": "object_detection",
+    "model_type": "PyTorch",
+    "runtime": "pytorch1.4-python3.7",
+    "metrics": {
+        "f1": 0.345294,
+        "accuracy": 0.462963,
+        "precision": 0.338977,
+        "recall": 0.351852
+    },
+    "apis": [{
+        "protocol": "https",
+        "url": "/",
+        "method": "post",
+        "request": {
+            "Content-type": "multipart/form-data",
+            "data": {
+                "type": "object",
+                "properties": {
+                    "images": {
+                        "type": "file"
+                    }
+                }
+            }
+        },
+        "response": {
+            "Content-type": "multipart/form-data",
+            "data": {
+                "type": "object",
+                "properties": {
+                    "detection_classes": {
+                        "type": "array",
+                        "items": [{
+                            "type": "string"
+                        }]
+                    },
+                    "detection_boxes": {
+                        "type": "array",
+                        "items": [{
+                            "type": "array",
+                            "minItems": 4,
+                            "maxItems": 4,
+                            "items": [{
+                                "type": "number"
+                            }]
+                        }]
+                    },
+                    "detection_scores": {
+                        "type": "array",
+                        "items": [{
+                            "type": "number"
+                        }]
+                    }
+                }
+            }
+        }
+    }],
+     "dependencies": [{
+        "installer": "pip",
+        "packages": [{
+                "restraint": "ATLEAST",
+                "package_version": "1.15.0",
+                "package_name": "numpy"
+            },
+            {
+                "restraint": "EXACT",
+                "package_version": "1.4.0",
+                "package_name": "torch"
+            },
+            {
+                "restraint": "EXACT",
+                "package_version": "0.5.0",
+                "package_name": "torchvision"
+            },
+            {
+                "restraint": "EXACT",
+                "package_version": "4.2.0.34",
+                "package_name": "opencv-python-headless"
+            },
+            {
+                "package_name": "webcolors"
+            },
+            {
+                "package_name": "pyyaml"
+            }
+        ]
+    }]
+}
