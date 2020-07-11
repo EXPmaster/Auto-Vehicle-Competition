@@ -131,5 +131,5 @@ dmypy.json
 weights/
 
 *.pth
-trainset/
-valset/
+data/
+labeled_data_backup/
