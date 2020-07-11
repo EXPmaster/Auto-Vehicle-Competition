@@ -42,6 +42,7 @@ class FocalLoss(nn.Module):
         anchor_heights = anchor[:, 2] - anchor[:, 0]
         anchor_ctr_x = anchor[:, 1] + 0.5 * anchor_widths
         anchor_ctr_y = anchor[:, 0] + 0.5 * anchor_heights
+        #print(batch_size)
 
         for j in range(batch_size):
 
@@ -52,6 +53,8 @@ class FocalLoss(nn.Module):
             bbox_annotation = bbox_annotation[bbox_annotation[:, 4] != -1]
 
             classification = torch.clamp(classification, 1e-4, 1.0 - 1e-4)
+            #print('classification')
+            #print(classification)
             
             if bbox_annotation.shape[0] == 0:
                 if torch.cuda.is_available():
@@ -63,7 +66,6 @@ class FocalLoss(nn.Module):
                     focal_weight = alpha_factor * torch.pow(focal_weight, gamma)
                     
                     bce = -(torch.log(1.0 - classification))
-                    
                     cls_loss = focal_weight * bce
                     
                     regression_losses.append(torch.tensor(0).to(dtype).cuda())
@@ -76,9 +78,7 @@ class FocalLoss(nn.Module):
                     focal_weight = alpha_factor * torch.pow(focal_weight, gamma)
                     
                     bce = -(torch.log(1.0 - classification))
-                    
                     cls_loss = focal_weight * bce
-                    
                     regression_losses.append(torch.tensor(0).to(dtype))
                     classification_losses.append(cls_loss.sum())
 
@@ -113,8 +113,11 @@ class FocalLoss(nn.Module):
             focal_weight = alpha_factor * torch.pow(focal_weight, gamma)
 
             bce = -(targets * torch.log(classification) + (1.0 - targets) * torch.log(1.0 - classification))
-
+            #print('bce')
+            #print(bce)
             cls_loss = focal_weight * bce
+            #print('cls_loss')
+            #print(cls_loss)
 
             zeros = torch.zeros_like(cls_loss)
             if torch.cuda.is_available():

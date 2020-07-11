@@ -1,7 +1,7 @@
 project_name: coco  # also the folder name of the dataset that under data_path folder
 train_set: trainset
 val_set: valset
-num_gpus: 0
+num_gpus: 1
 
 # mean and std in RGB order, actually this part should remain unchanged as long as your dataset is similar to coco.
 mean: [0.485, 0.456, 0.406]
@@ -14,4 +14,4 @@ anchors_ratios: '[(1.0, 1.0), (1.4, 0.7), (0.7, 1.4)]'
 # must match your dataset's category_id.
 # category_id is one_indexed,
 # for example, index of 'car' here is 2, while category_id of is 3
-obj_list: [{'red_stop', 'green_go', 'yellow_back', 'pedestrian_crossing', 'speed_limited', 'speed_unlimited']
+obj_list: ['red_stop', 'green_go', 'yellow_back', 'pedestrian_crossing', 'speed_limited', 'speed_unlimited']
