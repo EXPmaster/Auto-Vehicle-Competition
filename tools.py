@@ -4,9 +4,8 @@ import torch
 
 class Config:
     def __init__(self):
-        self.data_root = './labeled_data_backup'
+        self.data_root = 'labeled_data_backup'
         self.train_test_rate = 0.7
-        self.path = '/home/zwt/Yet-Another-EfficientDet-Pytorch'
         
         self.F1_thresh = 0.5
         
@@ -17,11 +16,11 @@ class Config:
         self.project = 'auto'
         self.saved_path = 'logs/'
         self.log_path = 'logs/'
-        self.batch_size = 1
-        self.num_workers = 1
-        self.data_path = 'datasets/'
+        self.batch_size = 8
+        self.num_workers = 0
+        self.data_path = 'data/'
         self.compound_coef = 0
-        self.load_weights = 'weights/efficientdet-d1.pth'
+        self.load_weights = None# 'weights/efficientdet-d1.pth'
         self.head_only = False
         self.debug = False
         self.optim = 'adamw'

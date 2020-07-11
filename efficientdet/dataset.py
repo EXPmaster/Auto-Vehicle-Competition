@@ -16,24 +16,7 @@ class CocoDataset(Dataset):
         self.transform = transform
 
         #self.coco = COCO(os.path.join(self.root_dir, 'annotations', 'instances_' + self.set_name + '.json'))
-        self.image_ids = os.listdir(self.set_name)
-
-        #self.load_classes()
-
-    # def load_classes(self):
-
-    #     # load class names (name -> label)
-    #     categories = self.coco.loadCats(self.coco.getCatIds())
-    #     categories.sort(key=lambda x: x['id'])
-
-    #     self.classes = {}
-    #     for c in categories:
-    #         self.classes[c['name']] = len(self.classes)
-
-    #     # also load the reverse (label -> name)
-    #     self.labels = {}
-    #     for key, value in self.classes.items():
-    #         self.labels[value] = key
+        self.image_ids = [item.replace('.xml', '.jpg') for item in self.set_name]
 
     def __len__(self):
         return len(self.image_ids)
@@ -73,7 +56,7 @@ class CocoDataset(Dataset):
         return parsed
     
     def load_image(self, image_index):
-        path = os.path.join(self.set_name, self.image_ids[image_index])
+        path = os.path.join(self.root_dir, self.image_ids[image_index])
         img = cv2.imread(path)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
@@ -84,14 +67,11 @@ class CocoDataset(Dataset):
         #annotations_ids = self.coco.getAnnIds(imgIds=self.image_ids[image_index], iscrowd=False)
         annotations = np.zeros((0, 5))
         filename = str(self.image_ids[image_index]).replace('.jpg', '.xml')
-        filename = os.path.join(cfg.data_root, filename)
+        filename = os.path.join(self.root_dir, filename)
         annot = self._xml_parser(filename)
         # some images appear to miss annotations
         classes = annot['detection_classes']
         bboxes = annot['detection_boxes']
-        #print(annot)
-        #print(classes)
-        #print(bboxes)
         for class_sample, bbox in zip(classes, bboxes):
             annotation = np.zeros((1, 5))
             #print(a)

@@ -24,6 +24,32 @@ from utils.sync_batchnorm import patch_replication_callback
 from utils.utils import replace_w_sync_bn, CustomDataParallel, get_last_weights, init_weights
 
 
+def get_train_test(file_path):
+    """
+    划分训练集与验证集的idx（以名称为索引）
+    return: dict
+    """
+    def listdir(path):
+        for item in os.listdir(path):
+            if not item.startswith('.'):
+                yield item
+    
+    data_list = [file for file in listdir(file_path)
+                  if file[-3:] == 'xml']
+    data_list.sort(key=lambda x: int(x.replace('.xml', '')))
+    
+    train_test_dict = {}
+    data_array = np.array(data_list)
+    idx_array = np.zeros_like(data_array, dtype=bool)
+    idx = np.random.choice(len(data_list), int(len(data_list)*cfg.train_test_rate), replace=False)
+    idx_array[idx] = True
+    
+    train_test_dict['train'] = data_array[idx_array]
+    train_test_dict['val'] = data_array[~idx_array]
+    
+    return train_test_dict
+
+
 class Params:
     def __init__(self, project_file):
         self.params = yaml.safe_load(open(project_file).read())
@@ -89,6 +115,8 @@ class ModelWithLoss(nn.Module):
 
 def train(cfg):
     params = Params(f'projects/{cfg.project}.yml')
+    data_root_dir = os.path.join(cfg.data_path, cfg.data_root)
+    train_val_dict = get_train_test(data_root_dir)
 
     if params.num_gpus == 0:
         os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
@@ -116,13 +144,13 @@ def train(cfg):
                   'num_workers': cfg.num_workers}
 
     input_sizes = [512, 640, 768, 896, 1024, 1280, 1280, 1536]
-    training_set = CocoDataset(root_dir=os.path.join(cfg.data_path, params.project_name), set=params.train_set,
+    training_set = CocoDataset(root_dir=data_root_dir, set=train_val_dict['train'],
                                transform=transforms.Compose([Normalizer(mean=params.mean, std=params.std),
                                                              Augmenter(),
                                                              Resizer(input_sizes[cfg.compound_coef])]))
     training_generator = DataLoader(training_set, **training_params)
 
-    val_set = CocoDataset(root_dir=os.path.join(cfg.data_path, params.project_name), set=params.val_set,
+    val_set = CocoDataset(root_dir=data_root_dir, set=train_val_dict['val'],
                           transform=transforms.Compose([Normalizer(mean=params.mean, std=params.std),
                                                         Resizer(input_sizes[cfg.compound_coef])]))
     val_generator = DataLoader(val_set, **val_params)
