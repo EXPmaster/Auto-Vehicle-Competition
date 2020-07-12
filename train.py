@@ -46,7 +46,7 @@ def get_train_test(file_path):
     
     train_test_dict['train'] = data_array[idx_array]
     train_test_dict['val'] = data_array[~idx_array]
-    
+
     return train_test_dict
 
 
