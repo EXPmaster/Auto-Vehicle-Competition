@@ -20,8 +20,8 @@ class Config:
         self.batch_size = 8
         self.num_workers = 0
         self.data_path = 'data/'
-        self.compound_coef = 0
-        self.load_weights = None# 'weights/efficientdet-d1.pth'
+        self.compound_coef = 2
+        self.load_weights = 'weights/efficientdet-d2.pth'
         self.head_only = False
         self.debug = False
         self.optim = 'adamw'

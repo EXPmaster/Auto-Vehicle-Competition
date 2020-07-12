@@ -135,3 +135,4 @@ data/
 labeled_data_backup/
 logs/auto/tensorboard/*
 log/coco/tensorboard/*
+.DS_Store

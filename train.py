@@ -20,8 +20,8 @@ from tqdm.autonotebook import tqdm
 
 from efficientdet.loss import FocalLoss
 from tools import cfg
-from utils.sync_batchnorm import patch_replication_callback
-from utils.utils import replace_w_sync_bn, CustomDataParallel, get_last_weights, init_weights
+from uts.sync_batchnorm import patch_replication_callback
+from uts.utils import replace_w_sync_bn, CustomDataParallel, get_last_weights, init_weights
 
 
 def get_train_test(file_path):

@@ -1,8 +1,12 @@
 # -*- coding: UTF-8 -*-
+import os
+import sys
+current_path = os.path.dirname(__file__)
+sys.path.append(current_path)
 from model_service.pytorch_model_service import PTServingBaseService
 from backbone import EfficientDetBackbone
 from efficientdet.utils import BBoxTransform, ClipBoxes
-from utils.utils import preprocess, invert_affine
+from uts.utils import preprocess, invert_affine
 import torch
 import numpy as np
 from tools import cfg
@@ -18,7 +22,7 @@ class PTVisionService(PTServingBaseService):
         super(PTVisionService, self).__init__(model_name, model_path)
         # 调用自定义函数加载模型
         checkpoint_file = model_path
-        params = yaml.safe_load(open(f'projects/{cfg.project}.yml'))
+        params = yaml.safe_load(open(f'/home/mind/model/projects/{cfg.project}.yml'))
         self.model = EfficientDetBackbone(compound_coef=cfg.compound_coef, num_classes=len(cfg.category),
                                      ratios=eval(params['anchors_ratios']), scales=eval(params['anchors_scales']))
         self.model.load_state_dict(torch.load(checkpoint_file, map_location=torch.device('cpu')))
