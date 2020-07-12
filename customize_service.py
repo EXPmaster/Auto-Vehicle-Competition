@@ -112,6 +112,7 @@ class PTVisionService(PTServingBaseService):
                 classes_ = classes_[anchors_nms_idx]
                 scores_ = scores_[anchors_nms_idx]
                 boxes_ = transformed_anchors_per[anchors_nms_idx, :]
+                boxes_ = boxes_[:,[1,0,3,2]]
 
                 out.append({
                     'rois': boxes_.numpy(),

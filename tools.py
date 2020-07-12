@@ -20,13 +20,13 @@ class Config:
         self.batch_size = 8
         self.num_workers = 0
         self.data_path = 'data/'
-        self.compound_coef = 1
-        self.load_weights = None# 'weights/efficientdet-d1.pth'
+        self.compound_coef = 2
+        self.load_weights = 'weights/efficientdet-d2.pth'
         self.head_only = False
         self.debug = False
         self.optim = 'adamw'
-        self.lr = 1e-3
-        self.num_epochs = 30
+        self.lr = 1e-4
+        self.num_epochs = 100
         self.save_interval = 500
         self.val_interval = 1
         self.es_min_delta = 0.0
