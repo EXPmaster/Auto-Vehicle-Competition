@@ -3,6 +3,7 @@ import torch
 import numpy as np
 import xml.dom.minidom
 from torch.utils.data import Dataset, DataLoader
+import torchvision.transforms as transforms
 #from pycocotools.coco import COCO
 import cv2
 from tools import cfg
@@ -181,4 +182,14 @@ class Normalizer(object):
         #print(sample['annot'])
 
         return {'img': ((image.astype(np.float32) - self.mean) / self.std), 'annot': annots}
+
+
+class ColorJitter(object):
+
+    def __call__(self, sample):
+        image, annots = sample['img'], sample['annot']
+        #print('Normalizer')
+        #print(sample['annot'])
+        trans = transforms.ColorJitter(brightness=0.5, contrast=0.4, saturation=0, hue=0)
+        return {'img': trans(image), 'annot': annots}
 

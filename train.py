@@ -12,7 +12,7 @@ import yaml
 from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import transforms
-from efficientdet.dataset import CocoDataset, Resizer, Normalizer, Augmenter, collater
+from efficientdet.dataset import CocoDataset, Resizer, Normalizer, Augmenter, collater, ColorJitter
 from backbone import EfficientDetBackbone
 from tensorboardX import SummaryWriter
 import numpy as np
