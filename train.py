@@ -143,8 +143,10 @@ def train(cfg):
                   'collate_fn': collater,
                   'num_workers': cfg.num_workers}
 
-    input_sizes = [512, 640, 768, 896, 1024, 1280, 1280, 1536]
-    training_set = CocoDataset(root_dir=data_root_dir, set=train_val_dict['train'],
+    # input_sizes = [512, 640, 768, 896, 1024, 1280, 1280, 1536]
+    input_sizes = [512, 896, 768, 896, 1024, 1280, 1280, 1536]
+    training_set = CocoDataset(root_dir=data_root_dir,
+                               set=np.concatenate((train_val_dict['train'], train_val_dict['val']), axis=0),
                                transform=transforms.Compose([ColorJitter(),
                                                              Normalizer(mean=params.mean, std=params.std),
                                                              Augmenter(),

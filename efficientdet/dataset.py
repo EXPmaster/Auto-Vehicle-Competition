@@ -192,5 +192,5 @@ class ColorJitter(object):
         gamma = flag[0] + (flag[1] - flag[0]) * temp
         img = sample['img'] ** gamma
         
-        return {'img':img,'annot':sample['annot']}
+        return {'img': img, 'annot': sample['annot']}
 

@@ -28,7 +28,8 @@ class PTVisionService(PTServingBaseService):
         self.model.load_state_dict(torch.load(checkpoint_file, map_location=torch.device('cpu')))
         self.model.requires_grad_(False)
         self.model.eval()
-        self.input_sizes = [512, 640, 768, 896, 1024, 1280, 1280, 1536]
+        # self.input_sizes = [512, 640, 768, 896, 1024, 1280, 1280, 1536]
+        self.input_sizes = [512, 896, 768, 896, 1024, 1280, 1280, 1536]
         self.class_dict = dict([val, key] for key, val in cfg.category.items())
         
     def _preprocess(self, data):
