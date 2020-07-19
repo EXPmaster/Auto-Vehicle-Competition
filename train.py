@@ -145,7 +145,8 @@ def train(cfg):
 
     input_sizes = [512, 640, 768, 896, 1024, 1280, 1280, 1536]
     training_set = CocoDataset(root_dir=data_root_dir, set=train_val_dict['train'],
-                               transform=transforms.Compose([Normalizer(mean=params.mean, std=params.std),
+                               transform=transforms.Compose([ColorJitter(),
+                                                             Normalizer(mean=params.mean, std=params.std),
                                                              Augmenter(),
                                                              Resizer(input_sizes[cfg.compound_coef])]))
     training_generator = DataLoader(training_set, **training_params)

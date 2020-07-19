@@ -4,8 +4,8 @@ import torch
 
 class Config:
     def __init__(self):
-        self.data_root = 'labeled_data_backup'
-        self.train_test_rate = 0.7
+        self.data_root = 'labeled_data_v2'
+        self.train_test_rate = 0.8
         
         self.threshold = 0.7
         self.nms_threshold = 0.5
@@ -17,11 +17,11 @@ class Config:
         self.project = 'auto'
         self.saved_path = 'logs/'
         self.log_path = 'logs/'
-        self.batch_size = 4
+        self.batch_size = 8
         self.num_workers = 0
         self.data_path = 'data/'
-        self.compound_coef = 3
-        self.load_weights = 'weights/efficientdet-d3.pth'
+        self.compound_coef = 2
+        self.load_weights = 'weights/efficientdet-d2.pth'
         self.head_only = False
         self.debug = False
         self.optim = 'adamw'
